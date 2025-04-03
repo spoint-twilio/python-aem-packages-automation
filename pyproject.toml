@@ -1,0 +1,16 @@
+[project]
+name = "aem-automation"
+version = "0.1.0"
+description = ""
+authors = [{ name = "spoint-twilio", email = "spoint@twilio.com" }]
+readme = "README.md"
+requires-python = ">=3.13"
+dependencies = ["pyaem2 (>=2.0.1,<3.0.0)", "six (>=1.17.0,<2.0.0)", "requests (>=2.32.3,<3.0.0)", "pycurl (>=7.45.6,<8.0.0)", "dotenv (>=0.9.9,<0.10.0)"]
+
+[tool.poetry]
+package-mode = false
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
