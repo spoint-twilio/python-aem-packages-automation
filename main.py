@@ -1,5 +1,7 @@
 import json
 from dotenv import dotenv_values
+import subprocess
+
 
 import pyaem2
 
@@ -40,7 +42,10 @@ def main():
         # Step 4: Download the package
         dev.download_package(package_path, download_path)
 
-        # Step 5: Upload the package (after modifying)
+        # Step 5: Delete package
+        dev.delete_package(package_path)
+
+        # Step 6: Upload the package (after modifying)
         result = local.upload_package(
             GROUP_NAME, package_name, VERSION, ".", force="true"
         )
@@ -49,13 +54,17 @@ def main():
         else:
             print(json.dumps({"msg": result.message}))
 
-        # Step 6: Install the newly uploaded package
+        # Step 7: Install the newly uploaded package
         print("Installing package")
         local_install_package(
             "http://admin:admin@localhost:4502",
             group_name=GROUP_NAME,
             package_name=package_name,
         )
+
+        # Step 8: Remove downloaded archive
+        print("Deleting downloaded archive")
+        subprocess.run(["rm", download_path])
 
         print("🎉 Package created, modified, and installed successfully!")
 

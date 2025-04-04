@@ -37,6 +37,15 @@ class AEMClient:
         response = self.session.post(url, data=data)
         print(response.json())
 
+    def delete_package(self, package_path: str) -> None:
+        print(f"Deleting package {package_path}...")
+        url = f"{self.aem_url}/crx/packmgr/service/.json{package_path}"
+        data = {"cmd": "delete"}
+        response = self.session.post(
+            url, data=data, timeout=70
+        )  # a timeout of a bit more than 1 minute, which seems to be the timeout on the server side
+        print(response.json())
+
     def download_package(self, package_path: str, download_path: str) -> None:
         print(f"Downloading package from {package_path}...")
         url = f"{self.aem_url}{package_path}"
